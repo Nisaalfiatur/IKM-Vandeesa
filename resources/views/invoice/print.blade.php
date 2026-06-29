@@ -327,15 +327,14 @@
             <div class="to-block">
                 <div class="to-label">KEPADA</div>
                 <div class="to-name">
-                    Bapak/Ibu {{ $invoice->pelanggan->nama ?? '-' }}
-                    @if($invoice->pelanggan && $invoice->pelanggan->nama_toko ?? false)
-                        ({{ $invoice->pelanggan->nama_toko }})
-                    @endif
+                    Bapak/Ibu {{ $invoice->nama_pelanggan }}
                 </div>
                 <div class="to-phone">
-                    {{ $invoice->pelanggan->no_telpn ?? '-' }}
-                    @if($invoice->member && $invoice->member->nama)
-                        (Member - {{ $invoice->member->nama }})
+                    {{ $invoice->no_telp_pelanggan }}
+                    @if($invoice->member)
+                        (Member)
+                    @elseif($invoice->reseller)
+                        (Reseller)
                     @endif
                 </div>
             </div>

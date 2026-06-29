@@ -28,9 +28,9 @@
 
         <div class="form-row">
             <div class="form-group" style="grid-column: span 2;">
-                <label for="id_pelanggan">Pelanggan / Member / Reseller 👤</label>
-                <select id="id_pelanggan" name="id_pelanggan" required>
-                    <option value="">-- Pilih Pelanggan --</option>
+                <label for="id_pelanggan">Member / Reseller 👤</label>
+                <select id="id_pelanggan" name="id_pelanggan" onchange="toggleAnonimInput()">
+                    <option value="">-- Pilih dari Database --</option>
                     @foreach($allPelanggans as $p)
                         <option value="{{ $p['value'] }}" {{ $selectedPelanggan === $p['value'] ? 'selected' : '' }}>
                             {{ $p['label'] }}
@@ -38,6 +38,11 @@
                     @endforeach
                 </select>
             </div>
+        </div>
+        
+        <div class="form-group" id="anonim_group">
+            <label for="nama_anonim">👤 Nama Pelanggan (Non Member)</label>
+            <input type="text" id="nama_anonim" name="nama_anonim" value="{{ $invoice->nama_pelanggan_anonim }}" placeholder="Ketik nama pelanggan baru di sini...">
         </div>
 
         <div class="form-group">
@@ -60,6 +65,33 @@
                         <p>No items yet! Click below to add one.</p>
                     </div>
                 @endif
+                <script>
+    function toggleAnonimInput() {
+        const idPelanggan = document.getElementById('id_pelanggan').value;
+        const anonimGroup = document.getElementById('anonim_group');
+        const namaAnonim = document.getElementById('nama_anonim');
+        
+        if (!idPelanggan) {
+            anonimGroup.style.display = 'block';
+            namaAnonim.required = true;
+        } else {
+            anonimGroup.style.display = 'none';
+            namaAnonim.required = false;
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        toggleAnonimInput();
+    });
+
+    let items = @json($invoice->detail->map(function($detail) {
+        return [
+            'id_item' => $detail->id_item,
+            'nama_item' => $detail->item->nama_item ?? 'N/A',
+            'harga_perpcs' => $detail->harga_perpcs,
+            'quantity' => $detail->quantity
+        ];
+    }));
                 @foreach($invoice->detail as $index => $detail)
                 <div class="item-row">
                     <div class="item-field">

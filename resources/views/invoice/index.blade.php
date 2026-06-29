@@ -105,7 +105,7 @@
                 <tbody>
                     @foreach($invoices as $invoice)
                     <tr class="master-row"
-                        data-search="{{ strtolower($invoice->no_invoice . ' ' . ($invoice->pelanggan->nama ?? 'n/a') . ' ' . ($invoice->kasir->nama_pg ?? 'n/a')) }}">
+                        data-search="{{ strtolower($invoice->no_invoice . ' ' . $invoice->nama_pelanggan . ' ' . ($invoice->kasir->nama_pg ?? 'n/a')) }}">
                         <td class="master-row-num">{{ $loop->iteration }}</td>
                         <td>
                             <span class="master-id-badge" style="color: #7C5CDB; background: #F5F3FF; border-color: #DDD6FE;">
@@ -119,23 +119,23 @@
                                 </div>
                                 <div style="display: flex; flex-direction: column; gap: 4px;">
                                     <span class="master-entity-name">
-                                        @if($invoice->pelanggan)
-                                            {{ $invoice->pelanggan->nama }}
-                                        @elseif($invoice->member)
-                                            {{ $invoice->member->nama }}
+                                        @if($invoice->member)
+                                            {{ $invoice->member->nama }} (Member)
                                         @elseif($invoice->reseller)
-                                            {{ $invoice->reseller->nama }}
+                                            {{ $invoice->reseller->nama }} (Reseller)
+                                        @elseif($invoice->nama_pelanggan_anonim)
+                                            {{ $invoice->nama_pelanggan_anonim }} (Non Member)
                                         @else
                                             N/A
                                         @endif
                                     </span>
                                     <div>
-                                        @if($invoice->pelanggan)
-                                            <span style="background: #F3F4F6; color: #4B5563; padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: 700; letter-spacing: 0.5px;">UMUM</span>
-                                        @elseif($invoice->member)
+                                        @if($invoice->member)
                                             <span style="background: #DBEAFE; color: #1D4ED8; padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: 700; letter-spacing: 0.5px;">MEMBER</span>
                                         @elseif($invoice->reseller)
                                             <span style="background: #D1FAE5; color: #047857; padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: 700; letter-spacing: 0.5px;">RESELLER</span>
+                                        @elseif($invoice->nama_pelanggan_anonim)
+                                            <span style="background: #F3F4F6; color: #4B5563; padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: 700; letter-spacing: 0.5px;">NON MEMBER</span>
                                         @endif
                                     </div>
                                 </div>

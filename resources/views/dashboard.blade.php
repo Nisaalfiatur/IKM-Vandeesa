@@ -285,13 +285,6 @@
     <!-- Secondary Metrics Grid -->
     <div class="grid-3">
         <div class="card metric-card">
-            <span class="metric-icon">👥</span>
-            <h3>Pelanggan</h3>
-            <div class="metric-value large-number">{{ $jumlahPelanggan }}</div>
-            <span class="subtitle">Total pelanggan</span>
-        </div>
-
-        <div class="card metric-card">
             <span class="metric-icon">⭐</span>
             <h3>Member</h3>
             <div class="metric-value large-number">{{ $jumlahMember }}</div>

@@ -154,7 +154,8 @@
             <div class="date-time">
                 {{ \Carbon\Carbon::parse($invoice->tanggal)->locale('id')->translatedFormat('l, d/m/Y') }} <br>
                 {{ \Carbon\Carbon::now('Asia/Jakarta')->format('H:i') }} WIB<br>
-                Kasir: {{ $invoice->kasir ? $invoice->kasir->nama_pg : '-' }}
+                Kasir: {{ $invoice->kasir ? $invoice->kasir->nama_pg : '-' }}<br>
+                Pelanggan: {{ $invoice->nama_pelanggan }}
             </div>
         </div>
 

@@ -66,12 +66,21 @@
                 </div>
 
                 <div class="master-form-group">
-                    <label class="master-form-label">Harga <span class="required">*</span></label>
+                    <label class="master-form-label">Harga Jual <span class="required">*</span></label>
                     <input type="text" name="harga"
                         class="master-form-input {{ $errors->has('harga') ? 'is-invalid' : '' }}"
                         value="{{ old('harga', $item->harga) }}"
-                        placeholder="Harga satuan">
+                        placeholder="Contoh: 150000">
                     @error('harga')<span class="master-error-text"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>{{ $message }}</span>@enderror
+                </div>
+
+                <div class="master-form-group">
+                    <label class="master-form-label">Harga Modal <span style="font-size: 11px; font-weight: normal; color: #6B7280;">(Opsional)</span></label>
+                    <input type="text" name="harga_modal"
+                        class="master-form-input {{ $errors->has('harga_modal') ? 'is-invalid' : '' }}"
+                        value="{{ old('harga_modal', $item->harga_modal) }}"
+                        placeholder="Contoh: 100000">
+                    @error('harga_modal')<span class="master-error-text"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>{{ $message }}</span>@enderror
                 </div>
 
                 <div class="master-form-group master-form-grid-full">

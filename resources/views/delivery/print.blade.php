@@ -468,7 +468,7 @@
                         </div>
                         <div class="info-row-inner">
                             <span class="info-row-label">Nama</span>
-                            <span class="info-row-val" style="font-weight: 700;">{{ optional($delivery->invoice?->pelanggan)->nama ?? optional($delivery->reseller)->nama ?? '-' }}</span>
+                            <span class="info-row-val" style="font-weight: 700;">{{ optional($delivery->invoice)->nama_pelanggan ?? optional($delivery->reseller)->nama ?? '-' }}</span>
                         </div>
                         <div class="info-row-inner">
                             <span class="info-row-label">Brand</span>
@@ -591,7 +591,7 @@
                 <div class="sig-role">Penerima/Mitra,</div>
                 <div class="sig-company">{{ optional($delivery->reseller)->nama_brand ?? optional($delivery->reseller)->nama ?? 'MITRA' }}</div>
                 <div class="sig-line"></div>
-                <div class="sig-name">{{ optional($delivery->invoice?->pelanggan)->nama ?? optional($delivery->reseller)->nama ?? '........................' }}</div>
+                <div class="sig-name">{{ optional($delivery->invoice)->nama_pelanggan ?? optional($delivery->reseller)->nama ?? '........................' }}</div>
             </div>
         </div>
 

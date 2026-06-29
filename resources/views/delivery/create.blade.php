@@ -404,7 +404,7 @@
                     <select name="no_invoice" id="invoiceSelect" class="{{ $errors->has('no_invoice') ? 'is-invalid' : '' }}">
                         <option value="">-- Pilih Invoice --</option>
                         @foreach ($invoices as $invoice)
-                            <option value="{{ $invoice->no_invoice }}" {{ old('no_invoice') == $invoice->no_invoice ? 'selected' : '' }}>
+                            <option value="{{ $invoice->no_invoice }}" {{ old('no_invoice', $selectedInvoice ?? '') == $invoice->no_invoice ? 'selected' : '' }}>
                                 {{ $invoice->no_invoice }}
                             </option>
                         @endforeach
@@ -516,9 +516,9 @@
 
             const invoice = invoicesData[selected];
 
-            const namaPelanggan = invoice.pelanggan ? invoice.pelanggan.nama 
-                : (invoice.member ? invoice.member.nama 
-                : (invoice.reseller ? invoice.reseller.nama : '-'));
+            const namaPelanggan = invoice.member ? invoice.member.nama
+                : (invoice.reseller ? invoice.reseller.nama
+                : (invoice.nama_pelanggan_anonim || '-'));
                 
             prevPelanggan.textContent = namaPelanggan;
             prevTanggal.textContent = formatDate(invoice.tanggal);

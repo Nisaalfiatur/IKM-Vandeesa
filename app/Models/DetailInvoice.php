@@ -14,6 +14,7 @@ class DetailInvoice extends Model
         'no_invoice',
         'id_item',
         'harga_perpcs',
+        'harga_modal',
         'quantity',
     ];
 

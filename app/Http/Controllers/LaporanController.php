@@ -21,7 +21,7 @@ class LaporanController extends Controller
         $endDate = $request->input('end_date', Carbon::now()->endOfMonth()->format('Y-m-d'));
 
         // Query invoice pada range tanggal
-        $invoices = Invoice::with(['pelanggan', 'kasir'])
+        $invoices = Invoice::with(['member', 'reseller', 'kasir'])
             ->whereBetween('tanggal', [$startDate, $endDate])
             ->orderBy('tanggal', 'desc')
             ->get();
@@ -29,6 +29,15 @@ class LaporanController extends Controller
         // Akumulasi total
         $totalOmset = $invoices->sum('total_harga');
         $totalTransaksi = $invoices->count();
+
+        // Calculate total modal
+        $totalModal = DetailInvoice::whereHas('invoice', function ($query) use ($startDate, $endDate) {
+                $query->whereBetween('tanggal', [$startDate, $endDate]);
+            })
+            ->selectRaw('SUM(quantity * COALESCE(harga_modal, 0)) as total')
+            ->value('total') ?? 0;
+            
+        $totalLaba = $totalOmset - $totalModal;
 
         // Detail item terjual
         $soldItems = DetailInvoice::with('item')
@@ -40,7 +49,7 @@ class LaporanController extends Controller
             ->orderBy('total_qty', 'desc')
             ->get();
 
-        return view('laporan.penjualan', compact('invoices', 'soldItems', 'startDate', 'endDate', 'totalOmset', 'totalTransaksi'));
+        return view('laporan.penjualan', compact('invoices', 'soldItems', 'startDate', 'endDate', 'totalOmset', 'totalTransaksi', 'totalLaba'));
     }
 
     /**

@@ -78,12 +78,17 @@
                     
                     <div class="form-group">
                         <label>Pelanggan</label>
-                        <select name="id_pelanggan" id="id_pelanggan" required class="form-input" onchange="calculateTotal()">
-                            <option value="">-- Pilih Pelanggan --</option>
-                            @foreach($pelanggans as $pelanggan)
-                                <option value="{{ $pelanggan->id_pelanggan }}">{{ $pelanggan->nama }}</option>
+                        <select name="id_pelanggan" id="id_pelanggan" class="form-input" onchange="toggleAnonimInput()">
+                            <option value="">-- Pilih Member / Reseller --</option>
+                            @foreach($allPelanggans as $p)
+                                <option value="{{ $p['value'] }}">{{ $p['label'] }}</option>
                             @endforeach
                         </select>
+                    </div>
+
+                    <div class="form-group" id="anonim_group">
+                        <label>Nama Pelanggan (Anonim)</label>
+                        <input type="text" name="nama_anonim" id="nama_anonim" class="form-input" placeholder="Masukkan nama manual...">
                     </div>
 
                     <div class="form-group" style="display:none;">
@@ -144,6 +149,22 @@
 
 <script>
     let cart = [];
+
+    function toggleAnonimInput() {
+        const idPelanggan = document.getElementById('id_pelanggan').value;
+        const anonimGroup = document.getElementById('anonim_group');
+        const namaAnonim = document.getElementById('nama_anonim');
+        
+        if (!idPelanggan) {
+            anonimGroup.style.display = 'block';
+            namaAnonim.required = true;
+        } else {
+            anonimGroup.style.display = 'none';
+            namaAnonim.required = false;
+            namaAnonim.value = '';
+        }
+        calculateTotal();
+    }
 
     function formatRupiah(number) {
         return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(number);
@@ -256,6 +277,7 @@
 
     // Inisialisasi
     document.addEventListener('DOMContentLoaded', () => {
+        toggleAnonimInput();
         renderCart();
     });
 </script>

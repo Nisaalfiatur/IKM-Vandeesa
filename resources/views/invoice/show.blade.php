@@ -5,6 +5,11 @@
     <div class="header-actions">
         <h1 class="page-title">📄 Detail Invoice ✨</h1>
         <div class="action-buttons">
+            @if($invoice->id_reseller)
+                <a href="{{ route('delivery.create', ['no_invoice' => $invoice->no_invoice]) }}" class="btn btn-primary" style="background: linear-gradient(135deg, #10B981 0%, #059669 100%);">
+                    📦 Buat DO
+                </a>
+            @endif
             <a href="{{ route('invoice.print', $invoice->no_invoice) }}" class="btn btn-print" target="_blank">
                 <span class="btn-icon">🖨️</span> Cetak
             </a>
@@ -49,24 +54,9 @@
             <h3 class="card-title">👥 Data Pihak Terkait</h3>
             <div class="info-list">
                 @php
-                    // Tentukan nama & tipe pelanggan dari sumber yang tersedia
-                    if ($invoice->pelanggan) {
-                        $namaPelanggan = $invoice->pelanggan->nama;
-                        $noTelp        = $invoice->pelanggan->no_telpn;
-                        $tipePelanggan = 'Pelanggan';
-                    } elseif ($invoice->member) {
-                        $namaPelanggan = $invoice->member->nama;
-                        $noTelp        = $invoice->member->no_telp;
-                        $tipePelanggan = 'Member';
-                    } elseif ($invoice->reseller) {
-                        $namaPelanggan = $invoice->reseller->nama;
-                        $noTelp        = $invoice->reseller->no_telp;
-                        $tipePelanggan = 'Reseller';
-                    } else {
-                        $namaPelanggan = 'N/A';
-                        $noTelp        = 'N/A';
-                        $tipePelanggan = null;
-                    }
+                    $namaPelanggan = $invoice->nama_pelanggan;
+                    $noTelp = $invoice->no_telp_pelanggan;
+                    $tipePelanggan = $invoice->tipe_pelanggan;
                 @endphp
                 <div class="info-row">
                     <label>Pelanggan</label>
@@ -257,6 +247,11 @@
 
     <!-- Action Buttons -->
     <div class="footer-actions mt-30">
+        @if($invoice->id_reseller)
+            <a href="{{ route('delivery.create', ['no_invoice' => $invoice->no_invoice]) }}" class="btn btn-primary" style="background: linear-gradient(135deg, #10B981 0%, #059669 100%);">
+                📦 Buat DO
+            </a>
+        @endif
         <a href="{{ route('invoice.edit', $invoice->no_invoice) }}" class="btn btn-warning">
             ✏️ Edit Invoice
         </a>

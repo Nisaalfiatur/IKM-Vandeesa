@@ -29,16 +29,21 @@
 
             <div class="form-grid">
                 <div class="form-group" style="grid-column: span 2;">
-                    <label for="id_pelanggan">👥 Pelanggan</label>
+                    <label for="id_pelanggan">👥 Member / Reseller</label>
                     <div class="select-wrapper">
-                        <select id="id_pelanggan" name="id_pelanggan" required>
-                            <option value="">-- Pilih Pelanggan --</option>
+                        <select id="id_pelanggan" name="id_pelanggan" onchange="toggleAnonimInput()">
+                            <option value="">-- Pilih dari Database --</option>
                             @foreach($allPelanggans as $p)
                                 <option value="{{ $p['value'] }}">{{ $p['label'] }}</option>
                             @endforeach
                         </select>
                     </div>
                 </div>
+            </div>
+
+            <div class="form-group" id="anonim_group">
+                <label for="nama_anonim">👤 Nama Pelanggan (Non Member)</label>
+                <input type="text" id="nama_anonim" name="nama_anonim" placeholder="Ketik nama pelanggan baru di sini...">
             </div>
 
             <div class="form-group">
@@ -64,6 +69,27 @@
         </form>
     </div>
 </div>
+
+<script>
+    function toggleAnonimInput() {
+        const idPelanggan = document.getElementById('id_pelanggan').value;
+        const anonimGroup = document.getElementById('anonim_group');
+        const namaAnonim = document.getElementById('nama_anonim');
+        
+        if (!idPelanggan) {
+            anonimGroup.style.display = 'block';
+            namaAnonim.required = true;
+        } else {
+            anonimGroup.style.display = 'none';
+            namaAnonim.required = false;
+            namaAnonim.value = '';
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        toggleAnonimInput();
+    });
+</script>
 
 <style>
     /* Typography & Variables */
