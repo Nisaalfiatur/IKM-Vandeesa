@@ -26,6 +26,7 @@ class ItemController extends Controller
             'nama_item' => 'required|max:100',
             'stok_item' => 'required|numeric|min:0',
             'harga' => 'required|max:100',
+            'harga_modal' => 'nullable|numeric|min:0',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -34,6 +35,7 @@ class ItemController extends Controller
             'nama_item' => $request->nama_item,
             'stok_item' => $request->stok_item,
             'harga' => $request->harga,
+            'harga_modal' => $request->harga_modal ?? 0,
             'harga_reseller' => $request->harga,
         ];
 
@@ -65,6 +67,7 @@ class ItemController extends Controller
             'nama_item' => 'required|max:100',
             'stok_item' => 'required|numeric|min:0',
             'harga' => 'required|max:100',
+            'harga_modal' => 'nullable|numeric|min:0',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -72,6 +75,7 @@ class ItemController extends Controller
             'nama_item' => $request->nama_item,
             'stok_item' => $request->stok_item,
             'harga' => $request->harga,
+            'harga_modal' => $request->harga_modal ?? 0,
         ];
 
         // Handle file upload

@@ -18,6 +18,7 @@ class Item extends Model
         'stok_item',
         'harga',
         'harga_reseller',
+        'harga_modal',
         'gambar',
     ];
 }

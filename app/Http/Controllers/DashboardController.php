@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Invoice;
 use App\Models\Item;
-use App\Models\Pelanggan;
 use App\Models\Member;
 use App\Models\Reseller;
 use App\Models\Delivery;
@@ -17,7 +16,6 @@ class DashboardController extends Controller
         $user = Auth::user();
         $role = $user->role;
 
-        // Default data untuk semua role
         $totalPenjualan = Invoice::sum('total_harga');
         $jumlahInvoice = Invoice::count();
         $deliveryMenunggu = Delivery::where('status', 'Menunggu')->count();
@@ -30,10 +28,8 @@ class DashboardController extends Controller
         $deliveryTerbaru = Delivery::orderBy('tanggal', 'desc')->limit(5)->get();
 
         if ($role === 'admin') {
-            // Admin: Lihat semua data
             $jumlahItem = Item::count();
             $stokMenipis = Item::where('stok_item', '<=', 5)->count();
-            $jumlahPelanggan = Pelanggan::count();
             $jumlahMember = Member::count();
             $jumlahReseller = Reseller::count();
 
@@ -42,7 +38,6 @@ class DashboardController extends Controller
                 'jumlahInvoice',
                 'jumlahItem',
                 'stokMenipis',
-                'jumlahPelanggan',
                 'jumlahMember',
                 'jumlahReseller',
                 'jumlahDelivery',
@@ -54,9 +49,7 @@ class DashboardController extends Controller
                 'invoiceTerbaru',
                 'deliveryTerbaru'
             ));
-
         } elseif ($role === 'kasir') {
-            // Kasir: Lihat dashboard penjualan saja (tanpa delivery)
             $jumlahItem = Item::count();
             $stokMenipis = Item::where('stok_item', '<=', 5)->count();
 
@@ -67,9 +60,7 @@ class DashboardController extends Controller
                 'stokMenipis',
                 'invoiceTerbaru'
             ));
-
         } elseif ($role === 'owner') {
-            // Owner: Lihat dashboard ringkasan (sales summary)
             return view('dashboard-owner', compact(
                 'totalPenjualan',
                 'jumlahInvoice',
@@ -84,7 +75,6 @@ class DashboardController extends Controller
             ));
         }
 
-        // Default redirect
         return redirect()->route('dashboard');
     }
 }
