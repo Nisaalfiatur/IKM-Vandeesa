@@ -582,10 +582,7 @@
                             <span class="menu-icon"><i data-lucide="user-square-2"></i></span>
                             <span class="menu-text">Data Pegawai</span>
                         </a>
-                        <a href="{{ route('pelanggan.index') }}" class="menu-link {{ request()->routeIs('pelanggan.*') ? 'active' : '' }}" data-label="Data Pelanggan">
-                            <span class="menu-icon"><i data-lucide="users"></i></span>
-                            <span class="menu-text">Data Pelanggan</span>
-                        </a>
+
                         <a href="{{ route('member.index') }}" class="menu-link {{ request()->routeIs('member.*') ? 'active' : '' }}" data-label="Data Member">
                             <span class="menu-icon"><i data-lucide="award"></i></span>
                             <span class="menu-text">Data Member</span>
@@ -627,14 +624,7 @@
                     </div>
 
                 @elseif(auth()->user()->role === 'kasir')
-                    <!-- SECTION: MASTER DATA (KASIR) -->
-                    <div class="menu-group">
-                        <div class="menu-group-title">Master Data</div>
-                        <a href="{{ route('pelanggan.index') }}" class="menu-link {{ request()->routeIs('pelanggan.*') ? 'active' : '' }}" data-label="Data Pelanggan">
-                            <span class="menu-icon"><i data-lucide="users"></i></span>
-                            <span class="menu-text">Data Pelanggan</span>
-                        </a>
-                    </div>
+
 
                     <!-- SECTION: TRANSAKSI (KASIR) -->
                     <div class="menu-group">

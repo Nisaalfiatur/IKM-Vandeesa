@@ -116,14 +116,13 @@
             </div>
             <div class="do-card-body">
                 @php
-                    $pelangganObj = $delivery->reseller 
-                                    ?? optional($delivery->invoice)->pelanggan 
-                                    ?? optional($delivery->invoice)->member 
+                    $pelangganObj = $delivery->reseller
+                                    ?? optional($delivery->invoice)->member
                                     ?? optional($delivery->invoice)->reseller;
                     
-                    $nama = $pelangganObj->nama ?? '-';
-                    $telp = $pelangganObj->no_telp ?? $pelangganObj->no_hp ?? '-';
-                    $alamat = $pelangganObj->alamat ?? '-';
+                    $nama = optional($pelangganObj)->nama ?? optional($delivery->invoice)->nama_pelanggan_anonim ?? '-';
+                    $telp = optional($pelangganObj)->no_telp ?? optional($pelangganObj)->no_hp ?? '-';
+                    $alamat = optional($pelangganObj)->alamat ?? '-';
                 @endphp
                 <div class="do-reseller-grid">
                     <div class="do-info-item">

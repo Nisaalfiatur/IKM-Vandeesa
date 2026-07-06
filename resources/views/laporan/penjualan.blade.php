@@ -445,6 +445,21 @@
             </div>
         </div>
 
+        <!-- Net Profit Card -->
+        <div class="kpi-card">
+            <div class="kpi-icon-wrapper" style="background: linear-gradient(135deg, #ECFEFF, #CFFAFE); color: #0891B2;">
+                <i data-lucide="piggy-bank" style="width: 28px; height: 28px;"></i>
+            </div>
+            <div class="kpi-content">
+                <div class="kpi-label">Laba Bersih</div>
+                <div class="kpi-value">Rp {{ number_format($totalLaba, 0, ',', '.') }}</div>
+                <div class="kpi-trend trend-neutral">
+                    <i data-lucide="trending-up" style="width: 12px; height: 12px;"></i>
+                    Keuntungan (Omset - Modal)
+                </div>
+            </div>
+        </div>
+
         <!-- Transactions Card -->
         <div class="kpi-card">
             <div class="kpi-icon-wrapper" style="background: linear-gradient(135deg, #F0FDF4, #DCFCE7); color: #16A34A;">
@@ -512,7 +527,7 @@
                                     <div class="entity-avatar" style="background: #f8fafc; color: #64748b;">
                                         <i data-lucide="user" style="width: 18px; height: 18px;"></i>
                                     </div>
-                                    <span class="entity-name">{{ $inv->pelanggan->nama ?? 'Umum / Guest' }}</span>
+                                    <span class="entity-name">{{ $inv->nama_pelanggan }}</span>
                                 </div>
                             </td>
                             <td>

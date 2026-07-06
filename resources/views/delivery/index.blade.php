@@ -137,10 +137,10 @@
                                 </td>
                                 <td>
                                     @php
-                                        $namaPelanggan = optional($delivery->reseller)->nama 
-                                            ?? optional(optional($delivery->invoice)->pelanggan)->nama 
-                                            ?? optional(optional($delivery->invoice)->member)->nama 
-                                            ?? optional(optional($delivery->invoice)->reseller)->nama 
+                                        $namaPelanggan = optional($delivery->reseller)->nama
+                                            ?? optional(optional($delivery->invoice)->member)->nama
+                                            ?? optional(optional($delivery->invoice)->reseller)->nama
+                                            ?? optional(optional($delivery->invoice)->nama_pelanggan_anonim)
                                             ?? '-';
                                     @endphp
                                     <div class="reseller-info-delivery">

@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\PegawaiController;
-use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ResellerController;
 use App\Http\Controllers\InvoiceController;
@@ -50,10 +49,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/pegawai/{id}/delete', [PegawaiController::class, 'delete'])->name('pegawai.delete');
     Route::resource('/pegawai', PegawaiController::class);
 
-    // Pelanggan Management (Delete Only - Other methods shared with Kasir)
-    Route::get('/pelanggan/{id}/delete', [PelangganController::class, 'delete'])->name('pelanggan.delete');
-    Route::delete('/pelanggan/{pelanggan}', [PelangganController::class, 'destroy'])->name('pelanggan.destroy');
-
     // Member Management
     Route::get('/member/{id}/delete', [MemberController::class, 'delete'])->name('member.delete');
     Route::resource('/member', MemberController::class);
@@ -70,11 +65,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/delivery/{id}/print', [DeliveryController::class, 'print'])->name('delivery.print');
     Route::resource('/delivery', DeliveryController::class);
 
-});
-
-// ========== SHARED ADMIN & KASIR ROUTES ==========
-Route::middleware(['auth', 'role:admin,kasir'])->group(function () {
-    Route::resource('/pelanggan', PelangganController::class)->except(['destroy']);
 });
 
 // ========== SHARED ADMIN & OWNER ROUTES ==========
