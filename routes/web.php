@@ -13,10 +13,12 @@ use App\Http\Controllers\KasirController;
 use App\Http\Controllers\AuthController;
 
 // ========== AUTH ROUTES (Tanpa Middleware Auth) ==========
+// Rute untuk halaman login, proses login, dan logout pengguna
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
+// Halaman utama: redirect ke dashboard jika sudah login, jika belum tampilkan landing page
 Route::get('/', function () {
     if (auth()->check()) {
         return redirect()->route('dashboard');

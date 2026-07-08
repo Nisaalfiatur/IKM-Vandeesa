@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route untuk mengambil data user yang sedang login
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
